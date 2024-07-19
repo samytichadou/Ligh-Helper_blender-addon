@@ -18,16 +18,6 @@ Created by Samy Tichadou
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-bl_info = {
-    "name": "Light Helper",
-    "description": "Manage several Lights quickly",
-    "author": "Samy Tichadou (tonton)",
-    "version": (1, 0, 0),
-    "blender": (3, 0, 0),
-    "location": "",
-    "wiki_url": "https://github.com/samytichadou/Light-Helper_blender-addon/blob/master/README.md",
-    "tracker_url": "https://github.com/samytichadou/Light-Helper_blender-addon/issues/new",
-    "category": "Lighting" }
 
 # IMPORT SPECIFICS
 ##################################
@@ -36,6 +26,7 @@ from . import   (
     gui,
     select_light_operator,
     properties,
+    addon_prefs,
 )
 
 
@@ -46,8 +37,10 @@ def register():
     gui.register()
     select_light_operator.register()
     properties.register()
+    addon_prefs.register()
 
 def unregister():
     gui.unregister()
     select_light_operator.unregister()
     properties.unregister()
+    addon_prefs.unregister()
