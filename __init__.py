@@ -26,7 +26,6 @@ from . import   (
     gui,
     select_light_operator,
     properties,
-    addon_prefs,
 )
 
 
@@ -37,10 +36,8 @@ def register():
     gui.register()
     select_light_operator.register()
     properties.register()
-    addon_prefs.register()
 
 def unregister():
     gui.unregister()
     select_light_operator.unregister()
     properties.unregister()
-    addon_prefs.unregister()

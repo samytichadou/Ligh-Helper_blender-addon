@@ -11,7 +11,7 @@ def return_light_icon(data):
     return 'LIGHT_%s' % data.type
 
 def get_selection_icon(ob,context):
-    isolated_light=context.scene.lighthelper_scene_properties.isolated_light
+    isolated_light=context.scene.lightsetter_scene_properties.isolated_light
     if isolated_light is not None:
         if ob==isolated_light:
             return "OUTLINER_OB_LIGHT"
@@ -83,7 +83,7 @@ def draw_area_light_settings(container, light_data):
     draw_common_light_props(row, light_data)
 
 
-class LIGHTHELPER_PT_manager(bpy.types.Panel):
+class LIGHTSETTER_PT_manager(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
     bl_category = "Lights"
@@ -92,17 +92,17 @@ class LIGHTHELPER_PT_manager(bpy.types.Panel):
     def draw_header(self, context):
         layout = self.layout
 
-        scn_props=context.scene.lighthelper_scene_properties
+        scn_props=context.scene.lightsetter_scene_properties
         if scn_props.isolated_light is None:
             layout.label(text="", icon="LIGHT")
         else:
             layout.alert=True
-            op=layout.operator('lighthelper.select_isolate_light',text="",icon="OUTLINER_OB_LIGHT")
+            op=layout.operator('lightsetter.select_isolate_light',text="",icon="OUTLINER_OB_LIGHT")
             op.light_name=""
 
     def draw(self, context):
         scn=context.scene
-        props=scn.lighthelper_scene_properties
+        props=scn.lightsetter_scene_properties
         isolated_light=props.isolated_light
         layout = self.layout
 
@@ -116,7 +116,7 @@ class LIGHTHELPER_PT_manager(bpy.types.Panel):
 
         lights=get_lights_objects(context)
         for light in lights:
-            props=light.lighthelper_object_properties
+            props=light.lightsetter_object_properties
 
             box=col.box()
 
@@ -137,7 +137,7 @@ class LIGHTHELPER_PT_manager(bpy.types.Panel):
 
             # Light Selector
             op=row.operator(
-                'lighthelper.select_isolate_light',
+                'lightsetter.select_isolate_light',
                 text="",
                 icon=get_selection_icon(light,context),
                 emboss=False,
@@ -175,7 +175,7 @@ class LIGHTHELPER_PT_manager(bpy.types.Panel):
 
 
 def register():
-    bpy.utils.register_class(LIGHTHELPER_PT_manager)
+    bpy.utils.register_class(LIGHTSETTER_PT_manager)
 
 def unregister():
-    bpy.utils.unregister_class(LIGHTHELPER_PT_manager)
+    bpy.utils.unregister_class(LIGHTSETTER_PT_manager)

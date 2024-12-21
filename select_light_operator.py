@@ -3,14 +3,14 @@ import bpy
 from .gui import get_lights_objects
 
 def unisolate(target_light, light_list, scn):
-    scn_props=scn.lighthelper_scene_properties
-    target_light.hide_viewport=target_light.lighthelper_object_properties.hidden_viewport
-    target_light.hide_render=target_light.lighthelper_object_properties.hidden_render
+    scn_props=scn.lightsetter_scene_properties
+    target_light.hide_viewport=target_light.lightsetter_object_properties.hidden_viewport
+    target_light.hide_render=target_light.lightsetter_object_properties.hidden_render
 
     for ob in light_list:
         if ob!=target_light:
-            ob.hide_viewport=ob.lighthelper_object_properties.hidden_viewport
-            ob.hide_render=ob.lighthelper_object_properties.hidden_render
+            ob.hide_viewport=ob.lightsetter_object_properties.hidden_viewport
+            ob.hide_render=ob.lightsetter_object_properties.hidden_render
     scn_props.isolated_light=None
 
     # World
@@ -20,9 +20,9 @@ def unisolate(target_light, light_list, scn):
         scn_props.hidden_world=None
 
 
-class LIGHTHELPER_OT_select_isolate_light(bpy.types.Operator):
+class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
     """Click - Select \nShift Click - Add to Selection\nAlt Click - Isolate"""
-    bl_idname = "lighthelper.select_isolate_light"
+    bl_idname = "lightsetter.select_isolate_light"
     bl_label = "Select/Isolate Light"
     bl_options = {"UNDO","INTERNAL"}
 
@@ -44,7 +44,7 @@ class LIGHTHELPER_OT_select_isolate_light(bpy.types.Operator):
     def execute(self, context):
         light_list=get_lights_objects(context)
         scn=context.scene
-        scn_props=scn.lighthelper_scene_properties
+        scn_props=scn.lightsetter_scene_properties
 
         # Unisolate
         if self.light_name=="":
@@ -107,15 +107,15 @@ class LIGHTHELPER_OT_select_isolate_light(bpy.types.Operator):
 
                 # Lights
                 if scn_props.isolated_light is None:
-                    target_light.lighthelper_object_properties.hidden_viewport=target_light.hide_viewport
-                    target_light.lighthelper_object_properties.hidden_render=target_light.hide_render
+                    target_light.lightsetter_object_properties.hidden_viewport=target_light.hide_viewport
+                    target_light.lightsetter_object_properties.hidden_render=target_light.hide_render
                 target_light.hide_viewport=target_light.hide_render=False
 
                 for ob in light_list:
                     if ob!=target_light:
                         if scn_props.isolated_light is None:
-                            ob.lighthelper_object_properties.hidden_viewport=ob.hide_viewport
-                            ob.lighthelper_object_properties.hidden_render=ob.hide_render
+                            ob.lightsetter_object_properties.hidden_viewport=ob.hide_viewport
+                            ob.lightsetter_object_properties.hidden_render=ob.hide_render
                         ob.hide_viewport=ob.hide_render=True
 
                 scn_props.isolated_light=target_light
@@ -134,7 +134,7 @@ class LIGHTHELPER_OT_select_isolate_light(bpy.types.Operator):
 
 
 def register():
-    bpy.utils.register_class(LIGHTHELPER_OT_select_isolate_light)
+    bpy.utils.register_class(LIGHTSETTER_OT_select_isolate_light)
 
 def unregister():
-    bpy.utils.unregister_class(LIGHTHELPER_OT_select_isolate_light)
+    bpy.utils.unregister_class(LIGHTSETTER_OT_select_isolate_light)
