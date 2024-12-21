@@ -2,9 +2,9 @@ schema_version = "1.0.0"
 
 # Example of manifest file for a Blender extension
 # Change the values according to your extension
-id = "light_helper"
+id = "light_setter"
 version = "1.1.0"
-name = "Light Helper"
+name = "Light Setter"
 tagline = "Manage several Lights quickly from 3D viewport"
 maintainer = "tonton <samytichadou@gmail.com>"
 # Supported types: "add-on", "theme"
