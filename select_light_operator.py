@@ -50,7 +50,7 @@ class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
         if self.light_name=="":
             target_light=scn_props.isolated_light
             unisolate(target_light,light_list,scn)
-            self.report({'INFO'}, "Lights restaurées")
+            self.report({'INFO'}, "Lights restored")
             return {'FINISHED'}
 
         # Selection
@@ -66,7 +66,7 @@ class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
 
             # Check if light exists
             if not chk_exist:
-                self.report({'WARNING'}, "Light introuvable")
+                self.report({'WARNING'}, "Unable to find light")
                 return {'FINISHED'}
 
             # Deselect all other objects
@@ -75,7 +75,7 @@ class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
                     if ob.name!=self.light_name:
                         ob.select_set(False)
 
-            self.report({'INFO'}, "%s sélectionné" % self.light_name)
+            self.report({'INFO'}, "%s selected" % self.light_name)
 
         # Isolation
         else:
@@ -90,7 +90,7 @@ class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
 
             # Check if light exists
             if target_light is None:
-                self.report({'WARNING'}, "Light introuvable")
+                self.report({'WARNING'}, "Unable to find light")
                 return {'FINISHED'}
 
             # Check for isolate toggle
@@ -100,7 +100,7 @@ class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
             # De Isolate
             if de_isolate:
                 unisolate(target_light,light_list,scn)
-                self.report({'INFO'}, "Lights restaurées")
+                self.report({'INFO'}, "Lights restored")
 
             # Isolate
             else:
@@ -128,7 +128,7 @@ class LIGHTSETTER_OT_select_isolate_light(bpy.types.Operator):
                         scn.world.use_fake_user=True
                         scn.world=None
 
-                self.report({'INFO'}, "%s isolée" % self.light_name)
+                self.report({'INFO'}, "%s isolated" % self.light_name)
 
         return {'FINISHED'}
 
